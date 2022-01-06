@@ -1,0 +1,87 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 1rem;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-left: 1vw;
+  }
+  
+  th,
+  td {
+    border: 1px solid #f0f2f5;
+    text-align: left;
+    padding: 8px;
+    font-size: 1.8vw;
+  }
+  .con_1{
+    min-width: 15vw;
+  }
+  .btn-1{
+    /* display: none; */
+    width: 20px;
+    height: 20px;
+    margin-left: 1vw;
+    cursor: pointer;
+  }
+  
+  th {
+    font-size: 1.5vw;
+    color: rgb(130 118 118);
+  }
+  thead{
+    margin-bottom: 5vw;
+  }
+  #idx_1{
+    min-width: 5vw;
+    /* width: 10px; */
+  }
+  
+  #drop{
+    border: none;
+    background-color: transparent;
+    width: 10vw;
+    font-size: 1.2vw;
+  }
+  /* td {
+    background-color: rgb(205, 235, 253);
+  } */
+
+ 
+/*   
+  form {
+    display: flex;
+    gap: 5px;
+  } */
+  
+  /* form td:last-child {
+    display: flex;
+    justify-content: space-evenly;
+  }
+   */
+  /* form * {
+    font-size: 28px;
+  } */
+
+  tr:nth-child(even) {
+    background-color: rgb(212, 224, 247);
+  }
+
+  .head{
+    color: rgb(42, 92, 255);
+    font-size: 2vw;
+    border-bottom : 2px solid rgb(214, 208, 208) ;
+    margin-bottom: 0.8vw;
+  }
+  .candidateList{
+    margin-bottom: 2vw;
+    font-size: 1.1vw;
+    margin-left: 1.5vw;
+  }
+  #new{
+    margin-left: 1.5vw;
+  }

@@ -1,0 +1,43 @@
+.com1{
+    display: flex;
+    justify-content: space-around;
+    
+}
+.main1{
+    border: 1px solid #dddfe2;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    border-radius: 8px;
+    width : 45vw;
+    height: 30vw;
+    background-color: white;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#button{
+    align-self: flex-end;
+    margin-right: 5vw;
+    gap: 2vw;
+}
+
+#cancel{
+    background-color: white;
+    color: black;
+    border-color: rgb(42, 92, 255);
+}
+
+.des > input {
+    height: 2.2vw;
+}
+#m2{
+    align-self: flex-start;
+    margin-left: 3.5vw;
+}
+.valid1{
+    color: red;
+    margin-left: 3.8vw;
+    font-size: 0.8vw;
+    margin-top: 5px;
+}

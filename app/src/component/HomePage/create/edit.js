@@ -1,0 +1,127 @@
+import React from 'react'
+import "./create.css"
+import { useState, useEffect } from 'react';
+import {useNavigate, useParams} from "react-router-dom"
+import axios from "axios"
+
+export default function Edit({setContacts}) {
+    const navigate = useNavigate();
+    const init = { name:"", DOB:"", age:"", email: "", state: "", pin: ""};
+    const [formValues, setFormValues] = useState(init);
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [Errors, setErrors] = useState("");
+
+    const {id} = useParams();
+
+    const loadData = async() => {
+       const resp = await axios.get(`http://localhost:9002/edit/${id}`)
+       setFormValues(resp.data);
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormValues({ ...formValues, [name]: value });
+        // console.log(formValues);
+
+    };
+
+    const handleSubmit =  (e) => {
+        e.preventDefault();
+        // alert("Hi")
+        if(formValues.name === "" || formValues.DOB === "" || formValues.age === "" || formValues.email === "" || formValues.state === "" || formValues.pin === "") {
+            // Errors = "All fields are requires";
+            setErrors("All fields are requires");
+        } else {
+            axios.put(`http://localhost:9002/edit/${id}`, formValues)
+            .then(res => {
+                // alert(res.data.candidate._id)
+                if(res.data.message === "Successfully Edited") {
+                    // navigate(`/${user._id}`)
+                    navigate("/homepage")
+                }
+            })
+            // navigate("/edit/")
+            console.log("Hi")
+        }
+        setIsSubmit(true);
+        // const { email, mobile, password } = formValues;
+    };
+
+    useEffect(() => {
+        loadData();
+        // if(isSubmit && Errors === "") {
+        //     axios.put("http://localhost:9002/:id", formValues)
+        //     .then(res => {
+        //         alert(res.data.candidate._id)
+        //         if(res.data.message === "Successfully Edited") {
+        //             // navigate(`/${user._id}`)
+        //             navigate("/:id")
+        //         }
+        //     })
+        //     // navigate(`/${user._id}`)
+        // } 
+        // if(isSubmit && Errors === "") {
+        //     axios.post("http://localhost:9002/create", formValues)
+        //     .then(res => {
+        //         // alert(res.data.message);
+        //         alert(res.data.candidate._id )
+        //         if(res.data.message === "Successfully Added") {
+        //             navigate("/homepage")
+        //         }
+        //     })
+        // }
+    },[])
+
+    return (
+        <div>
+            <div className="main1">
+                <h3 id='m2'>Edit the Candidate</h3>
+                <div className="com1">
+                        <div className="des"> 
+                            <label htmlFor=""> Name</label> <br />
+                            <input type="text" name='name' value={formValues.name} placeholder='enter your name' onChange={handleChange} />
+  
+                        </div>
+                        <div className="des">
+                            <label htmlFor=""> Date of Birth</label> <br />
+                            <input type="text" name='DOB' value={formValues.DOB} placeholder='enter your Date of Birth' onChange={handleChange}/>
+         
+                        </div>
+                </div>
+               
+               <div className="com1">
+                        <div className="des">
+                                <label htmlFor=""> Age</label> <br />
+                                <input type="text" name='age' value={formValues.age} placeholder='enter your age' onChange={handleChange}/>
+                              
+                            </div>
+                            <div className="des">
+                                <label htmlFor=""> Email Address</label> <br /> 
+                                <input type="text" name='email' value={formValues.email} placeholder='enter your email address' onChange={handleChange}/>
+                                
+                        </div>
+               </div>
+               <div className="a1">
+
+               <div className="com1">
+                        <div className="des"><label htmlFor=""> State</label> <br />
+                                <input type="text" name='state' value={formValues.state} placeholder='enter your state' onChange={handleChange}/>
+                               
+                            </div>
+                            <div className="des"><label htmlFor=""> Pin Code</label><br />
+                                <input type="text" name='pin' value={formValues.pin} placeholder='enter your 6-digit pin code' onChange={handleChange}/>
+                                
+                         </div>
+               </div>
+               <p className='valid1'>{Errors}</p>
+               </div>
+               
+
+                <div className="com1" id='button'>
+                   <button className="button-3" id='cancel' onClick={()=>{navigate("/homepage")}}>Cancel</button>
+                   <button className="button-3"  onClick={handleSubmit}>Change</button>
+                </div>
+            </div>
+        </div>
+    )
+}
