@@ -2,8 +2,9 @@ import express, { response } from 'express'
 import cors from "cors"
 import mongoose from "mongoose"
 import { autoIncrement } from 'mongoose-plugin-autoinc';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
+ 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
@@ -28,15 +29,6 @@ const userSchema = new mongoose.Schema({
     password: String
 })   
  
-
-userSchema.post('save', async function(next) {
-    console.log("chal rha hai")
-    if(this.isModified('password')) {
-        this.password = bcrypt.hash(this.password, 12);
-        console.log(this.password)
-    }
-     next(); 
-});
 
 const User = new mongoose.model("User", userSchema)
 const candidateSchema = new mongoose.Schema({
@@ -104,7 +96,7 @@ app.post("/login", (req,res)=>{
     const {email, password} = req.body
     User.findOne({ email: email }, (err, user) => {
         if(user) {
-            if(password === user.password) {
+            if(bcrypt.compareSync(password,user.password)) {
                 // console.log("password matched")
                 res.send({message: "Login Successfull", user: user })
             } else {
@@ -129,21 +121,20 @@ app.post("/", (req,res)=> {
             res.send({message: "User already registered"})
         } else {
             
+            let hash = bcrypt.hashSync(req.body.password, 10);
             const user = new User({
                 email,
                 mobile,
-                password
-            })
+                password : hash
+            }) 
             user.save(err=>{
                 if(err) {
-                    
                     res.send(err);
                 } else {
                    
                     res.send({ message: "Successfully Registered Please login"})
                 }
             })
-            console.log("123")
         }
     })
 })
